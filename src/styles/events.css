@@ -1,0 +1,11 @@
+.eventBox {
+  display: flex;
+  padding: 3%;
+  align-items: center;
+  border-radius: 12px;
+  justify-content: flex-start;
+  box-shadow: 0px 5px 22px rgb(231, 231, 231), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+  cursor: pointer;
+  gap: 6%;
+}/*# sourceMappingURL=events.css.map */
