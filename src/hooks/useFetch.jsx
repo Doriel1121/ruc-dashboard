@@ -2,7 +2,7 @@
 import axios from "axios";
 
 export function useFetch() {
-  const url = "http://localhost:3000";
+  const url = "https://tiny-gray-tortoise-robe.cyclic.app";
   const FetchData = (path, type, payload = null) => {
     return type === "get"
       ? axios.get(url + path, { withCredentials: true })
