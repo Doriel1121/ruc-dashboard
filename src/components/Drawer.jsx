@@ -25,7 +25,7 @@ import Events from "../pages/Events";
 import AppContext from "../context/AppContext";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PrivateRoute from "./privateRoute";
-import ProfilePage from "../pages/ProfilePage";
+// import ProfilePage from "../pages/ProfilePage";
 import "../styles/drawer.css";
 
 const drawerWidth = 240;
@@ -66,23 +66,6 @@ const DrawerHeader = styled("div")(({ theme, open }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
-
-// const AppBar = styled(MuiAppBar, {
-//   shouldForwardProp: (prop) => prop !== "open",
-// })(({ theme, open }) => ({
-//   zIndex: theme.zIndex.drawer + 1,
-//   transition: theme.transitions.create(["width", "margin"], {
-//     easing: theme.transitions.easing.sharp,
-//     duration: theme.transitions.duration.leavingScreen,
-//   }),
-//   ...(open && {
-//     width: `calc(100% - ${drawerWidth}px)`,
-//     transition: theme.transitions.create(["width", "margin"], {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.enteringScreen,
-//     }),
-//   }),
-// }));
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
@@ -247,7 +230,7 @@ export default function MiniDrawer() {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Events />} />
             <Route path="/dashboard" element={<HomePage />} />
-            <Route path="/account" element={<ProfilePage />} />
+            {/* <Route path="/account" element={<ProfilePage />} /> */}
           </Route>
         </Routes>
       </Box>
