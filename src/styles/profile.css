@@ -1,0 +1,70 @@
+.profileContainer .profileTitle {
+  text-align: right;
+}
+.profileContainer .eventsListContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.profileContainer .eventsListContainer .eventWrapper {
+  border-bottom: 1px solid #CECE5A;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px;
+}
+.profileContainer .eventsListContainer .eventWrapper label {
+  font-weight: 600;
+}
+.profileContainer .eventsListContainer .eventWrapper label, .profileContainer .eventsListContainer .eventWrapper span {
+  font-size: 13px;
+}
+.profileContainer .eventsListContainer .selected {
+  border-bottom: 3px solid #CECE5A;
+}
+.profileContainer .eventsListContainer .selected label {
+  color: #CECE5A;
+}
+.profileContainer .eventsInputs {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.profileContainer .eventsInputs .inputsLayout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.profileContainer .eventsInputs .inputsLayout .inputWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+}
+.profileContainer .eventsInputs .form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+.profileContainer .eventsInputs .form .submitBtn {
+  background: #CECE5A;
+  transition: 0.2s all;
+}
+.profileContainer .eventsInputs .form .submitBtn:hover {
+  background: #cdcd4b;
+}
+.profileContainer .editInputsWrapper {
+  min-height: 15dvh;
+}
+
+h3 {
+  text-align: right;
+}/*# sourceMappingURL=profile.css.map */

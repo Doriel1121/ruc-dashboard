@@ -54,4 +54,35 @@
   50% {
     transform: scale(1.2, 1);
   }
+}
+.loaderWrapper {
+  height: 100%;
+  display: flex;
+}
+
+.inlineLoaderWrapper {
+  background: rgba(0, 0, 0, 0.252);
+  min-height: 15dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 7px;
+}
+
+.inlineLoader {
+  width: 45px;
+  height: 40px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 16.6666666667%, #fff 0 50%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 33.3333333333%, #fff 0 66.6666666667%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 50%, #fff 0 83.3333333333%, rgba(0, 0, 0, 0) 0);
+  background-size: 10px 400%;
+  background-repeat: no-repeat;
+  animation: matrix 1s infinite linear;
+}
+
+@keyframes matrix {
+  0% {
+    background-position: 0% 100%, 50% 100%, 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%, 50% 0%, 100% 0%;
+  }
 }/*# sourceMappingURL=loader.css.map */

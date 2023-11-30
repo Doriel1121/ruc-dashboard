@@ -23,16 +23,17 @@ import { Routes, Route } from "react-router-dom";
 import GridViewIcon from "@mui/icons-material/GridView";
 import Events from "../pages/Events";
 import AppContext from "../context/AppContext";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import "../styles/drawer.css";
 import PrivateRoute from "./privateRoute";
-import ProfilePage from "../pages/profilePage";
+import ProfilePage from "../pages/ProfilePage";
 
 const drawerWidth = 240;
 
 const drawerLinks = [
-  { name: "ראשי", link: "/", icon: <EventAvailableIcon /> },
-  { name: "אירועים", link: "/dashboard", icon: <GridViewIcon /> },
+  { name: "אירועים", link: "/", icon: <EventAvailableIcon /> },
+  { name: "לוח בקרה", link: "/dashboard", icon: <GridViewIcon /> },
   { name: "עריכה", link: "/edit", icon: <EditCalendarIcon /> },
   { name: "חשבון", link: "/account", icon: <AccountCircleIcon /> },
 ];
@@ -87,7 +88,7 @@ const DrawerHeader = styled("div")(({ theme, open }) => ({
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
-  direction: "rtl",
+  // direction: "rtl",
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: "nowrap",
@@ -109,7 +110,7 @@ export default function MiniDrawer() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
-  const { guestsList, setGuestsList, setIsLoggedIn, isLoggedIn } =
+  const { guestsList, setGuestsList, setIsLoggedIn, isLoggedIn, handleReset } =
     useContext(AppContext);
 
   const handleDrawerOpen = () => {
@@ -128,6 +129,7 @@ export default function MiniDrawer() {
           sessionStorage.clear();
           setIsLoggedIn(false);
           navigation("/login");
+          handleReset();
         }
       })
       .catch((err) => {
@@ -137,15 +139,16 @@ export default function MiniDrawer() {
   };
 
   return (
-    <Box sx={{ display: "flex", direction: "rtl" }}>
+    <Box sx={{ display: "flex", height: "100%", alignItems: "center" }}>
       <CssBaseline />
       <Drawer
         PaperProps={{
           sx: {
-            backgroundColor: "#678579",
+            backgroundColor: "#CECE5A",
             color: "#fff",
             boxShadow: "-2px 0px 13px 8px #dedede",
             border: 0,
+            left: 0,
           },
         }}
         anchor="right"
@@ -183,6 +186,7 @@ export default function MiniDrawer() {
                     minHeight: 48,
                     justifyContent: open ? "initial" : "center",
                     px: 2.5,
+                    flexDirection: "row-reverse",
                   }}
                 >
                   <ListItemIcon
@@ -219,6 +223,7 @@ export default function MiniDrawer() {
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
+                flexDirection: "row-reverse",
               }}
             >
               <ListItemIcon
@@ -229,14 +234,14 @@ export default function MiniDrawer() {
                   marginRight: 0,
                 }}
               >
-                <AccountCircleIcon />
+                <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary={"חשבון"} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary={"התנתק"} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, height: "90dvh" }}>
         {/* <Navigation /> */}
         {/* <HomePage /> */}
         <Routes>

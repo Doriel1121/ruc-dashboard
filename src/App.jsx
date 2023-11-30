@@ -5,16 +5,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import TemporaryDrawer from "./components/Drawer";
 import AppContext from "./context/AppContext";
-import Cookies from "js-cookie";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Events from "./pages/Events";
-import Navigation from "./pages/Navigation";
 import Loader from "./components/loader";
 import { useFetch } from "./hooks/useFetch";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+
+const cacheRtl = createCache({
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
+});
 
 // import { AppContextProvider } from "./context/AppContext";
 
 const theme = createTheme({
+  // direction: "rtl",
   components: {
     MuiListItemIcon: {
       styleOverrides: {
@@ -26,18 +33,19 @@ const theme = createTheme({
   },
 });
 function App() {
-  const { setIsLoggedIn, isLoggedIn, customerId, setUserEventsList } =
-    useContext(AppContext);
+  const { isLoggedIn, setCustomerId } = useContext(AppContext);
   const FetchData = useFetch();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
-  //   console.log("customer Id", customerId);
-  //   const sessionedUserInfo = sessionStorage.getItem("customerInfo");
-  //   console.log(
-  //     "usierrrrijdsoijhdsihfdsiufh",
-  //     JSON.parse(sessionedUserInfo).userId
-  //   );
-  // }, [customerId]);
+  //   const sessionUserInfo = JSON.parse(sessionStorage.getItem("customerInfo"));
+  //   const id = sessionUserInfo?.userId;
+  //   setCustomerId(id);
+  //   console.log("customer id", id);
+  //   if (!!id === false) {
+  //     navigate("/login");
+  //   }
+  // }, []);
 
   const displayedComponent = () => {
     if (isLoggedIn === true) {
@@ -51,15 +59,16 @@ function App() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        {/* <BrowserRouter>{displayedComponent()}</BrowserRouter> */}
-        <BrowserRouter>
-          <Routes>
-            <Route path="/login" element={<SignIn />} />
-            <Route path="*" element={<TemporaryDrawer />} />
-          </Routes>
-        </BrowserRouter>
-      </ThemeProvider>
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/login" element={<SignIn />} />
+              <Route path="*" element={<TemporaryDrawer />} />
+            </Routes>
+          </BrowserRouter>
+        </ThemeProvider>
+      </CacheProvider>
     </>
   );
 }

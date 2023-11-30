@@ -9,6 +9,14 @@ export function AppContextProvider({ children }) {
   const [customerId, setCustomerId] = useState("");
   const [userInfo, setUserInfo] = useState({});
   const [selectedEventInfo, setSelectedEventInfo] = useState({});
+  const handleReset = (value) => {
+    setGuestsList([]);
+    setUserEventsList([]);
+    setIsLoggedIn(undefined);
+    setCustomerId("");
+    setUserInfo({});
+    setSelectedEventInfo({});
+  };
 
   const values = {
     guestsList,
@@ -23,6 +31,7 @@ export function AppContextProvider({ children }) {
     setSelectedEventInfo,
     userInfo,
     setUserInfo,
+    handleReset,
   };
 
   return (

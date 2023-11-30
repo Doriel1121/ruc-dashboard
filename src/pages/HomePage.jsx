@@ -13,15 +13,18 @@ import CountdownTimer from "../components/CountdownTimer";
 import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
 import Loader from "../components/loader";
 import { useFetch } from "../hooks/useFetch";
+import debounce from "lodash/debounce";
 
 export default function HomePage() {
   const [eventInfo, setEventInfo] = useState();
-  // const [localGuests, setLocalGuests] = useState();
+  const [localGuests, setLocalGuests] = useState();
   // const [localEvent, setLocalEvent] = useState(
   //   JSON.parse(sessionStorage.getItem("eventInfo"))
   // );
   const [dateOfEvent, setDateOfEvent] = useState();
   const [IsAttendingService, setIsAttendingService] = useState(false);
+  const [filter, setFilter] = useState("");
+
   const { guestsList, selectedEventInfo, setGuestsList, isLoggedIn, userInfo } =
     useContext(AppContext);
   const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
@@ -77,8 +80,24 @@ export default function HomePage() {
       return data.filter((guest) => guest.isComing === false).length;
     }
   };
+
+  const handleSearch = debounce((value) => {
+    setFilter(value);
+    filterData(value);
+  }, 300);
+
+  const filterData = (value) => {
+    const lowerCaseValue = value;
+    let filtered;
+    filtered = guestsList[0].data.filter((item) =>
+      item.name.includes(lowerCaseValue)
+    );
+    setLocalGuests(filtered);
+  };
+
   if (state.loading) return <Loader />;
   if (!!eventInfo === false) return <span> לא נבחר אירוע</span>;
+  // return <Loader />;
 
   return state?.post?.data?.length > 0 ? (
     <div>
@@ -135,25 +154,26 @@ export default function HomePage() {
               },
             }}
             sx={{
-              "& label": {
-                left: "unset",
-                right: "1.75rem",
-                transformOrigin: "right",
-                fontFamily: "system-ui",
-                fontSize: "13px",
-              },
-              "& legend": {
-                textAlign: "right",
-                fontSize: "0.6rem",
-              },
-              "& .MuiOutlinedInput-root": {
-                "& fieldset": {
-                  borderColor: "#E5E7EB",
-                },
-              },
+              // "& label": {
+              //   left: "unset",
+              //   right: "1.75rem",
+              //   transformOrigin: "right",
+              //   fontFamily: "system-ui",
+              //   fontSize: "13px",
+              // },
+              // "& legend": {
+              //   textAlign: "right",
+              //   fontSize: "0.6rem",
+              // },
+              // "& .MuiOutlinedInput-root": {
+              //   "& fieldset": {
+              //     borderColor: "#E5E7EB",
+              //   },
+              // },
               width: "40%",
               minWidth: "300px",
             }}
+            onChange={(e) => handleSearch(e.target.value)}
             placeholder="הכנס שם של מוזמן"
             label="שם מוזמן"
             variant="outlined"
@@ -175,7 +195,7 @@ export default function HomePage() {
             </Button>
           </Box>
         </Box>
-        <ReactVirtualizedTable data={state.post.data} />
+        <ReactVirtualizedTable data={localGuests || state.post.data} />
       </Box>
     </div>
   ) : (

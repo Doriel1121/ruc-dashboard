@@ -1,5 +1,5 @@
 import { useFetch } from "../hooks/useFetch";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/events.css";
@@ -14,9 +14,11 @@ export default function Events() {
   } = useContext(AppContext);
   const navigation = useNavigate();
   const FetchData = useFetch();
+  const [localUserInfo, setLocalUserInfo] = useState();
 
   useEffect(() => {
     const sessionUserInfo = JSON.parse(sessionStorage.getItem("customerInfo"));
+    setLocalUserInfo(sessionUserInfo);
     const id = customerId || sessionUserInfo?.userId;
     // const cookies = Cookies.get();
     // if (cookies && cookies.login_session) {
@@ -45,36 +47,38 @@ export default function Events() {
   };
 
   return (
-    <div>
-      <h2>
-        היי {userInfo.name} יש לך {userEventsList.length} אירועים
+    <div className="events">
+      <h2 className="title">
+        היי {localUserInfo?.name} יש לך {userEventsList.length} אירועים
       </h2>
-      {userEventsList?.map((item) => {
-        return (
-          <div
-            onClick={() => handleSelectedEvent(item)}
-            className="eventBox"
-            key={item._id}
-          >
-            <div>
-              <b className="label type">סוג אירוע: </b>
-              <span>{item?.type}</span>
+      <div className="eventsListWrapper">
+        {userEventsList?.map((item) => {
+          return (
+            <div
+              onClick={() => handleSelectedEvent(item)}
+              className="eventBox"
+              key={item._id}
+            >
+              <div>
+                <b className="label type">סוג אירוע: </b>
+                <span>{item?.type}</span>
+              </div>
+              <div>
+                <b className="label location">מיקום: </b>
+                <span>{item?.location}</span>
+              </div>
+              <div>
+                <b className="label date">תאריך: </b>
+                <span>{item?.date}</span>
+              </div>
+              <div>
+                <b className="label amount">מספר מוזמנים: </b>
+                <span>{item?.invited_amount}</span>
+              </div>
             </div>
-            <div>
-              <b className="label location">מיקום: </b>
-              <span>{item?.location}</span>
-            </div>
-            <div>
-              <b className="label date">תאריך: </b>
-              <span>{item?.date}</span>
-            </div>
-            <div>
-              <b className="label amount">מספר מוזמנים: </b>
-              <span>{item?.invited_amount}</span>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

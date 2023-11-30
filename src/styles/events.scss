@@ -1,11 +1,27 @@
-.eventBox{
-    display: flex;
-    padding: 3%;
-    align-items: center;
-    border-radius: 12px;
-    justify-content: flex-start;
-    box-shadow: 0px 5px 22px rgb(231, 231, 231), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.06);
-    flex-wrap: wrap;
-    cursor: pointer;
-    gap: 6%;
+.events{
+    .title{
+        text-align: right;
+    }
+    .eventsListWrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        .eventBox{
+            display: flex;
+            padding: 2%;
+            align-items: center;
+            border-radius: 12px;
+            justify-content: flex-start;
+            box-shadow: 0px 2px 6px rgb(231, 231, 231), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.06);
+            flex-wrap: wrap;
+            cursor: pointer;
+            gap: 6%;
+            border: 1px solid transparent;
+            transition: all ;
+        }
+        .eventBox:hover{
+            border: 1px solid #CECE5A;
+        }
+    
+    }
 }
