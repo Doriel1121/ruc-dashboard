@@ -24,10 +24,9 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import Events from "../pages/Events";
 import AppContext from "../context/AppContext";
 import LogoutIcon from "@mui/icons-material/Logout";
-
-import "../styles/drawer.css";
 import PrivateRoute from "./privateRoute";
 import ProfilePage from "../pages/ProfilePage";
+import "../styles/drawer.css";
 
 const drawerWidth = 240;
 
