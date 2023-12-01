@@ -48,10 +48,11 @@ export default function SignIn() {
   const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
   const navigation = useNavigate();
   const FetchData = useFetch();
+  const id = JSON.parse(sessionStorage.getItem("customerInfo"))?.userId;
 
   useEffect(() => {
     const cookies = Cookies.get();
-    if ((cookies && cookies.login_session) || isLoggedIn) {
+    if (((cookies && cookies.login_session) || isLoggedIn) && !!id === true) {
       console.log("im logged innnn");
       navigation("/");
     }

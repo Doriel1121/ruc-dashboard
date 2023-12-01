@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import AppContext from "../context/AppContext";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useFetch } from "../hooks/useFetch";
 
@@ -11,9 +11,9 @@ export default function PrivateRoute() {
   const id = sessionUserInfo?.userId;
   const FetchData = useFetch();
   const navigation = useNavigate();
-  useEffect(() => {
-    console.log("reloading because of cookies");
-  }, [cookies]);
+  // useEffect(() => {
+  //   console.log("reloading because of cookies");
+  // }, [cookies]);
 
   const handleLogOut = () => {
     FetchData("/logout", "get")
