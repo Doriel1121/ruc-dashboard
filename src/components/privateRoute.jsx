@@ -34,8 +34,15 @@ export default function PrivateRoute() {
   };
 
   if (((cookies && cookies.login_session) || isLoggedIn) && !!id === true) {
+    console.log("cookies", cookies);
+    console.log("is logged in", isLoggedIn);
+    console.log("id ", id, !!id);
+    console.log(
+      "in case of refresh and cookie was created and there is a session storage this message shouldnt appear"
+    );
     return <Outlet />;
   } else {
+    console.log("handeling logout");
     handleLogOut();
   }
 }
