@@ -1,16 +1,21 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import AppContext from "../context/AppContext";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useFetch } from "../hooks/useFetch";
 
 export default function PrivateRoute() {
+  const [cookies, setCookies] = useState("");
   const { isLoggedIn, setIsLoggedIn, handleReset } = useContext(AppContext);
-  const cookies = Cookies.get();
+  // const cookies = Cookies.get();
   const sessionUserInfo = JSON.parse(sessionStorage.getItem("customerInfo"));
   const id = sessionUserInfo?.userId;
   const FetchData = useFetch();
   const navigation = useNavigate();
+  useEffect(() => {
+    const tempCookies = Cookies.get();
+    setCookies(tempCookies);
+  }, []);
 
   const handleLogOut = () => {
     FetchData("/logout", "get")
