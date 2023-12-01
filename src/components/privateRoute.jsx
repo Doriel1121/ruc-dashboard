@@ -16,15 +16,17 @@ export default function PrivateRoute() {
     FetchData("/logout", "get")
       .then((res) => {
         console.log("logout response ", res.data);
-        // if (!!res.data.isLogOutSuccess === true) {
-        sessionStorage.clear();
-        setIsLoggedIn(false);
-        navigation("/login");
-        handleReset();
-        // return <Navigate to={"/login"} />;
-        // } else {
-
-        // }
+        if (!!res.data.isLogOutSuccess === true) {
+          sessionStorage.clear();
+          setIsLoggedIn(false);
+          navigation("/login");
+          handleReset();
+        } else {
+          console.log(
+            "something went wrong with the logging out action",
+            res.data
+          );
+        }
       })
       .catch((err) => {
         // dispatch({ type: "ERROR" });
