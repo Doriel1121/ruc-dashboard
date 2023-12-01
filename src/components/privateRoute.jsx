@@ -16,12 +16,11 @@ export default function PrivateRoute() {
     FetchData("/logout", "get")
       .then((res) => {
         console.log("logout response ", res.data);
-        if (!!res.data.isLogOutSuccess === true) {
-          sessionStorage.clear();
-          setIsLoggedIn(false);
-          navigation("/login");
-          handleReset();
-        } else {
+        sessionStorage.clear();
+        setIsLoggedIn(false);
+        navigation("/login");
+        handleReset();
+        if (!!res.data.isLogOutSuccess === false) {
           console.log(
             "something went wrong with the logging out action",
             res.data
