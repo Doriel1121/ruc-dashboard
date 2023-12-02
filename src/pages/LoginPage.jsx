@@ -52,7 +52,7 @@ export default function SignIn() {
 
   useEffect(() => {
     const cookies = Cookies.get();
-    if (((cookies && cookies.login_session) || isLoggedIn) && !!id === true) {
+    if (!!id === true) {
       console.log("im logged innnn");
       navigation("/");
     }
