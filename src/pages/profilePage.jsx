@@ -1,8 +1,8 @@
+import "../styles/profile.css";
 import AppContext from "../context/AppContext";
 import { useContext, useEffect, useState, useReducer } from "react";
 import CustomerEditEvent from "../components/customerEditEvent";
 import Events from "./Events";
-import "../styles/profile.css";
 import { useFetch } from "../hooks/useFetch";
 import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
 import Loader from "../components/loader";
@@ -90,7 +90,7 @@ export default function ProfilePage() {
   };
   return (
     <div className="profileContainer">
-      {/* <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
+      <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
       <h3>אירועים פעילים</h3>
       <div className="eventsListContainer">
         {userEventsList?.map((event) => {
@@ -115,9 +115,9 @@ export default function ProfilePage() {
               <div>
                 <label>האירוע של : </label>
                 <span>
-                  {event.type === "בר/ת מצווה"
-                    ? event.name
-                    : event.broom + " ו" + event.bride}
+                  {event.type === "חתונה"
+                    ? event.broom + " ו" + event.bride
+                    : event.name}
                 </span>
               </div>
             </div>
@@ -135,12 +135,11 @@ export default function ProfilePage() {
             />
           )
         ) : null}
-      </div> */}
-      {/* ------------------------------------------------------------------------------------------------ */}
+      </div>
       {/* {localUserInfo?.role === 1 ? (
         <button onClick={saveTemplate}>שמור עיצוב</button>
       ) : null} */}
-      {/* <AdditionalActions eventData={localEvenInfo} /> */}
+      <AdditionalActions eventData={localEvenInfo} />
     </div>
   );
 }

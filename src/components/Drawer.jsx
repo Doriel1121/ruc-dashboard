@@ -12,7 +12,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ProfilePage from "../pages/ProfilePage";
+import ProfilePage from "../pages/ProfilePage.jsx";
 import HomePage from "../pages/HomePage";
 import Events from "../pages/Events";
 import { Link, useNavigate } from "react-router-dom";
