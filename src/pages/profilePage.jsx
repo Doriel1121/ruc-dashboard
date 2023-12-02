@@ -90,7 +90,7 @@ export default function ProfilePage() {
   };
   return (
     <div className="profileContainer">
-      <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
+      {/* <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
       <h3>אירועים פעילים</h3>
       <div className="eventsListContainer">
         {userEventsList?.map((event) => {
@@ -135,7 +135,8 @@ export default function ProfilePage() {
             />
           )
         ) : null}
-      </div>
+      </div> */}
+      {/* ------------------------------------------------------------------------------------------------ */}
       {/* {localUserInfo?.role === 1 ? (
         <button onClick={saveTemplate}>שמור עיצוב</button>
       ) : null} */}
