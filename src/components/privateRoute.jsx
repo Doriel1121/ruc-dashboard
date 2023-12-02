@@ -11,6 +11,7 @@ export default function PrivateRoute() {
   const id = sessionUserInfo?.userId;
   const FetchData = useFetch();
   const navigation = useNavigate();
+  console.log("doc cookie", document.cookie);
   // useEffect(() => {
   //   console.log("reloading because of cookies");
   // }, [cookies]);
