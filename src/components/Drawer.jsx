@@ -27,7 +27,8 @@ import AppContext from "../context/AppContext";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PrivateRoute from "./privateRoute";
 import "../styles/drawer.css";
-import ProfilePage from "../pages/ProfilePage";
+// import ProfilePage from "../pages/ProfilePage";
+import Profile from "../pages/Profile";
 
 const drawerWidth = 240;
 
@@ -231,7 +232,7 @@ export default function MiniDrawer() {
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<Events />} />
             <Route path="/dashboard" element={<HomePage />} />
-            <Route path="/account" element={<ProfilePage />} />
+            <Route path="/account" element={<Profile />} />
           </Route>
         </Routes>
       </Box>
