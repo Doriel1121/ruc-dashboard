@@ -1,4 +1,3 @@
-import React from "react";
 import AppContext from "../context/AppContext";
 import { useContext, useEffect, useState, useReducer } from "react";
 import CustomerEditEvent from "../components/customerEditEvent";
@@ -12,15 +11,8 @@ import AdditionalActions from "../components/additionalActions";
 import { useRef } from "react";
 
 export default function ProfilePage() {
-  const {
-    guestsList,
-    selectedEventInfo,
-    setGuestsList,
-    isLoggedIn,
-    userInfo,
-    userEventsList,
-    setUserEventsList,
-  } = useContext(AppContext);
+  const { userInfo, userEventsList, setUserEventsList } =
+    useContext(AppContext);
   const [localUserInfo, setLocalUserInfo] = useState();
   const [localEvenInfo, setLocalEvenInfo] = useState();
   const FetchData = useFetch();
@@ -96,9 +88,6 @@ export default function ProfilePage() {
     // Focus on the corresponding element using the ref
     selectedEventRef.current.focus();
   };
-
-  console.log("user event info", userInfo);
-  console.log("is loading", state);
   return (
     <div className="profileContainer">
       <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
@@ -150,7 +139,7 @@ export default function ProfilePage() {
       {/* {localUserInfo?.role === 1 ? (
         <button onClick={saveTemplate}>שמור עיצוב</button>
       ) : null} */}
-      <AdditionalActions eventData={localEvenInfo} />
+      {/* <AdditionalActions eventData={localEvenInfo} /> */}
     </div>
   );
 }
