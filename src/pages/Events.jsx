@@ -1,8 +1,10 @@
 import { useFetch } from "../hooks/useFetch";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useReducer } from "react";
 import AppContext from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
 import "../styles/events.css";
+import Loader from "../components/loader";
 
 export default function Events() {
   const {
@@ -14,6 +16,7 @@ export default function Events() {
   } = useContext(AppContext);
   const navigation = useNavigate();
   const FetchData = useFetch();
+  const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
   const [localUserInfo, setLocalUserInfo] = useState();
 
   useEffect(() => {
@@ -24,12 +27,15 @@ export default function Events() {
     // if (cookies && cookies.login_session) {
     // setIsLoggedIn(true);
     if (userEventsList.length === 0) {
+      dispatch({ type: "START" });
       FetchData(`/userEvents/${id}`, "get")
         .then((res) => {
+          dispatch({ type: "SUCCESS" });
           console.log(res);
           setUserEventsList(res.data.customerEvents);
         })
         .catch((err) => {
+          dispatch({ type: "ERROR" });
           console.log(err);
         });
     }
@@ -46,10 +52,13 @@ export default function Events() {
     navigation("/dashboard");
   };
 
+  if (state.loading) return <Loader />;
+  if (state.error) return "משהו השתבש";
+
   return (
     <div className="events">
       <h2 className="title">
-        היי {localUserInfo?.name} יש לך {userEventsList.length} אירועים
+        היי {localUserInfo?.name} יש לך {userEventsList?.length} אירועים
       </h2>
       <div className="eventsListWrapper">
         {userEventsList?.map((item) => {

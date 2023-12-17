@@ -1,3 +1,6 @@
+@use './variables.scss';
+@import './variables.scss';
+
 .profileContainer{
     .profileTitle{
         text-align: right;
@@ -11,7 +14,7 @@
     
         .eventWrapper{
             
-            border-bottom: 1px solid #CECE5A;
+            border-bottom: 1px solid $greenish;
             border-radius: 10px;
             display: flex;
             flex-direction: column;
@@ -26,10 +29,10 @@
             }
         }
         .selected{
-            border-bottom: 3px solid #CECE5A;
+            border-bottom: 3px solid $greenish;
 
             label{
-                color: #CECE5A;
+                color: $greenish;
             }
         }
     }
@@ -57,16 +60,25 @@
             align-items: flex-start;
             gap: 20px;
             .submitBtn{
-                background: #CECE5A;
+                background: $greenish;
                 transition: 0.2s all;
             }
             .submitBtn:hover{
-                background: #cdcd4b;
+                background: $greenish;
             }
         }
     }
     .editInputsWrapper{
         min-height: 15dvh;
+    }
+    .openingForm{
+        display: flex;
+        align-items: end;
+        gap: 5%;
+        margin-bottom: 15px;
+        button{
+            font-size: clamp(12px , 13px , 30px);
+        }
     }
 }
 h3{

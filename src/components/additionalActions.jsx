@@ -56,7 +56,7 @@ export default function AdditionalActions(props) {
             כאן ניתן להוסיף פתיח להודעה שתישלח לכלל המוזמנים שלך, במקרה ושדה זה
             לא ימולא תתווסף הודעה גנרית.
           </Typography>
-          <form onSubmit={handleOpeningForm}>
+          <form className="openingForm" onSubmit={handleOpeningForm}>
             <TextField
               sx={{ width: "100%", marginTop: "20px" }}
               id="standard-multiline-static"

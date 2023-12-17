@@ -94,19 +94,14 @@ export default function CustomerEditEvent(props) {
   }, [_id]);
 
   const handleSubmit = (event) => {
-    console.log(eventInfo);
-    console.log(event.target);
     event.preventDefault();
     const data = new FormData(event.target);
-    console.log(data);
     const infoData = { ...Object.fromEntries(data.entries()) };
     const filteredObject = {
       ...filterEmptyProperties(infoData),
       eventId: eventInfo._id,
     };
     updateEvent(filteredObject);
-
-    console.log(filteredObject);
   };
 
   function filterEmptyProperties(obj) {

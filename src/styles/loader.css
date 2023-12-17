@@ -61,7 +61,7 @@
 }
 
 .inlineLoaderWrapper {
-  background: rgba(0, 0, 0, 0.252);
+  background: rgba(199, 199, 199, 0.0784313725);
   min-height: 15dvh;
   display: flex;
   align-items: center;
@@ -72,7 +72,7 @@
 .inlineLoader {
   width: 45px;
   height: 40px;
-  background: linear-gradient(rgba(0, 0, 0, 0) 16.6666666667%, #fff 0 50%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 33.3333333333%, #fff 0 66.6666666667%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 50%, #fff 0 83.3333333333%, rgba(0, 0, 0, 0) 0);
+  background: linear-gradient(rgba(0, 0, 0, 0) 16.6666666667%, #FD8D14 0 50%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 33.3333333333%, #FD8D14 0 66.6666666667%, rgba(0, 0, 0, 0) 0), linear-gradient(rgba(0, 0, 0, 0) 50%, #FD8D14 0 83.3333333333%, rgba(0, 0, 0, 0) 0);
   background-size: 10px 400%;
   background-repeat: no-repeat;
   animation: matrix 1s infinite linear;

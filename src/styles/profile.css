@@ -59,10 +59,19 @@
   transition: 0.2s all;
 }
 .profileContainer .eventsInputs .form .submitBtn:hover {
-  background: #cdcd4b;
+  background: #CECE5A;
 }
 .profileContainer .editInputsWrapper {
   min-height: 15dvh;
+}
+.profileContainer .openingForm {
+  display: flex;
+  align-items: end;
+  gap: 5%;
+  margin-bottom: 15px;
+}
+.profileContainer .openingForm button {
+  font-size: 13px;
 }
 
 h3 {

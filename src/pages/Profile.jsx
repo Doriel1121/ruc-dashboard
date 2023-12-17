@@ -30,6 +30,7 @@ export default function Profile() {
       setLocalEvenInfo(event);
     }
     if (userEventsList.length === 0) {
+      dispatch({ type: "START" });
       FetchData(`/userEvents/${customer.userId}`, "get")
         .then((res) => {
           console.log(res);
@@ -39,8 +40,10 @@ export default function Profile() {
           console.log(filteredList);
           setUserEventsList(filteredList);
           setLocalEvenInfo(res.data.customerEvents[0]);
+          dispatch({ type: "SUCCESS" });
         })
         .catch((err) => {
+          dispatch({ type: "ERROR" });
           console.log(err);
         });
     }
@@ -88,42 +91,47 @@ export default function Profile() {
     // Focus on the corresponding element using the ref
     selectedEventRef.current.focus();
   };
+
   return (
     <div className="profileContainer">
       <h2 className="profileTitle"> ברוך הבא {localUserInfo?.name} </h2>
       <h3>אירועים פעילים</h3>
-      <div className="eventsListContainer">
-        {userEventsList?.map((event) => {
-          // console.log(event._id, localEvenInfo._id);
-          return (
-            <div
-              onClick={(e) => handleSelectedEvent(e, event)}
-              className={`eventWrapper ${
-                localEvenInfo?._id === event._id ? "selected" : ""
-              }`}
-              key={event._id}
-              ref={localEvenInfo?._id === event._id ? selectedEventRef : null}
-            >
-              <div>
-                <label>סוג: </label>
-                <span>{event.type}</span>
+      {state.loading ? (
+        <InlineLoader />
+      ) : (
+        <div className="eventsListContainer">
+          {userEventsList?.map((event) => {
+            // console.log(event._id, localEvenInfo._id);
+            return (
+              <div
+                onClick={(e) => handleSelectedEvent(e, event)}
+                className={`eventWrapper ${
+                  localEvenInfo?._id === event._id ? "selected" : ""
+                }`}
+                key={event._id}
+                ref={localEvenInfo?._id === event._id ? selectedEventRef : null}
+              >
+                <div>
+                  <label>סוג: </label>
+                  <span>{event.type}</span>
+                </div>
+                <div>
+                  <label>תאריך: </label>
+                  <span>{event.date}</span>
+                </div>
+                <div>
+                  <label>האירוע של : </label>
+                  <span>
+                    {event.type === "חתונה"
+                      ? event.broom + " ו" + event.bride
+                      : event.name}
+                  </span>
+                </div>
               </div>
-              <div>
-                <label>תאריך: </label>
-                <span>{event.date}</span>
-              </div>
-              <div>
-                <label>האירוע של : </label>
-                <span>
-                  {event.type === "חתונה"
-                    ? event.broom + " ו" + event.bride
-                    : event.name}
-                </span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
       <div className="editInputsWrapper">
         {!!localEvenInfo === true ? (
           state.loading ? (

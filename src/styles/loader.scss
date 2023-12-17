@@ -1,3 +1,6 @@
+@use './variables.scss';
+@import './variables.scss';
+
 .loader {
     width: 48px;
     height: 48px;
@@ -68,7 +71,7 @@
     display: flex;
   }
   .inlineLoaderWrapper{
-    background: rgba(0, 0, 0, 0.252);
+    background: $grayBgColor;
     min-height: 15dvh;
     display: flex;
     align-items: center;
@@ -79,9 +82,9 @@
   .inlineLoader {
     width: 45px;
     height: 40px;
-    background: linear-gradient(#0000 calc(1*100%/6),#fff 0 calc(3*100%/6),#0000 0),
-              linear-gradient(#0000 calc(2*100%/6),#fff 0 calc(4*100%/6),#0000 0),
-              linear-gradient(#0000 calc(3*100%/6),#fff 0 calc(5*100%/6),#0000 0);
+    background: linear-gradient(#0000 calc(1*100%/6),$orangeish 0 calc(3*100%/6),#0000 0),
+              linear-gradient(#0000 calc(2*100%/6),$orangeish 0 calc(4*100%/6),#0000 0),
+              linear-gradient(#0000 calc(3*100%/6),$orangeish 0 calc(5*100%/6),#0000 0);
     background-size: 10px 400%;
     background-repeat: no-repeat;
     animation: matrix 1s infinite linear;

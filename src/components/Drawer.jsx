@@ -35,7 +35,6 @@ const drawerWidth = 240;
 const drawerLinks = [
   { name: "אירועים", link: "/", icon: <EventAvailableIcon /> },
   { name: "לוח בקרה", link: "/dashboard", icon: <GridViewIcon /> },
-  { name: "עריכה", link: "/edit", icon: <EditCalendarIcon /> },
   { name: "חשבון", link: "/account", icon: <AccountCircleIcon /> },
 ];
 
@@ -106,9 +105,11 @@ export default function MiniDrawer() {
   };
 
   const handleLogOut = () => {
+    dispatch({ type: "START" });
     FetchData("/logout", "get")
       .then((res) => {
         console.log("logout response ", res.data);
+        dispatch({ type: "SUCCESS" });
         if (res.data.isLogOutSuccess) {
           sessionStorage.clear();
           setIsLoggedIn(false);

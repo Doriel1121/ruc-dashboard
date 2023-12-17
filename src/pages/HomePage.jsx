@@ -47,7 +47,11 @@ export default function HomePage() {
       const filteredList = guestsList?.filter(
         (list) => list.eventId === eventInformation._id
       );
-      if (filteredList?.length === 0 || filteredList?.data?.length === 0) {
+      if (
+        filteredList?.length === 0 ||
+        filteredList?.data?.length === 0 ||
+        filteredList === undefined
+      ) {
         dispatch({ type: "START" });
         FetchData(
           `/availableGuests/${eventInformation._id}/${eventInformation.customerId}`,
@@ -93,6 +97,38 @@ export default function HomePage() {
       item.name.includes(lowerCaseValue)
     );
     setLocalGuests(filtered);
+  };
+
+  const handleDownload = () => {
+    const data = localGuests || state.post.data;
+    const filteredData = data.map(({ name, phone, isComing, amount }) => ({
+      name,
+      phone,
+      isComing,
+      amount,
+    }));
+    const filename = "רשימת מאשרי הגעה";
+    // Convert the object data to CSV format
+    const csvContent =
+      "\uFEFF" +
+      Object.keys(filteredData[0]).join(",") +
+      "\n" +
+      filteredData.map((item) => Object.values(item).join(",")).join("\n");
+
+    // Create a Blob containing the CSV data
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+
+    // Create a link element to trigger the download
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename || "data.csv";
+
+    // Append the link to the document and trigger the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    document.body.removeChild(link);
   };
 
   if (state.loading) return <Loader />;
@@ -185,7 +221,11 @@ export default function HomePage() {
               justifyContent: "space-between",
             }}
           >
-            <Button sx={{ color: "#678579" }} label="הורד">
+            <Button
+              onClick={handleDownload}
+              sx={{ color: "#678579" }}
+              label="הורד"
+            >
               הורד
               <FileDownloadOutlinedIcon />
             </Button>
