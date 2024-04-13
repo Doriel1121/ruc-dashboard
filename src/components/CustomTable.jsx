@@ -9,18 +9,6 @@ import Paper from "@mui/material/Paper";
 import { TableVirtuoso } from "react-virtuoso";
 import "../styles/customTable.css";
 
-// const sample = [
-//   ["Frozen yoghurt", 159, 6.0, 24, 4.0],
-//   ["Ice cream sandwich", 237, 9.0, 37, 4.3],
-//   ["Eclair", 262, 16.0, 24, 6.0],
-//   ["Cupcake", 305, 3.7, 67, 4.3],
-//   ["Gingerbread", 356, 16.0, 49, 3.9],
-// ];
-
-// function createData(id, dessert, calories, fat, carbs, protein) {
-//   return { id, dessert, calories, fat, carbs, protein };
-// }
-
 const columns = [
   {
     width: 200,
@@ -31,13 +19,11 @@ const columns = [
     width: 120,
     label: "טלפון",
     dataKey: "phone",
-    // numeric: true,
   },
   {
     width: 120,
     label: "סטטוס",
     dataKey: "isComing",
-    // numeric: true,
   },
   {
     width: 120,
@@ -79,10 +65,7 @@ const VirtuosoTableComponents = {
 };
 
 const customTableBodyCell = (row, column) => {
-  //   console.log("here", row, column);
-  //   console.log("here", row, column);
   if (column.dataKey === "isComing") {
-    // console.log("האם מגיע", row[column.dataKey]);
     switch (row[column.dataKey]) {
       case true:
         return <span className="coming">מגיע</span>;

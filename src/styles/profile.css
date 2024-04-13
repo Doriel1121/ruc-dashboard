@@ -47,6 +47,7 @@
   align-items: flex-start;
   flex-direction: column;
   gap: 5px;
+  flex: 0 0 30%;
 }
 .profileContainer .eventsInputs .form {
   display: flex;
@@ -60,6 +61,14 @@
 }
 .profileContainer .eventsInputs .form .submitBtn:hover {
   background: #CECE5A;
+}
+.profileContainer .eventsInputs .form .clickable {
+  cursor: pointer;
+  color: #415f82;
+  text-decoration: underline;
+}
+.profileContainer .eventsInputs .form .clickable:hover {
+  color: #CECE5A;
 }
 .profileContainer .editInputsWrapper {
   min-height: 15dvh;

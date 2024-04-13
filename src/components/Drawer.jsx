@@ -1,4 +1,4 @@
-import { useReducer, useState, useContext } from "react";
+import { useReducer, useState, useContext, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -26,9 +26,12 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import AppContext from "../context/AppContext";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PrivateRoute from "./privateRoute";
+import MyLogo from "./MyLogo";
 import "../styles/drawer.css";
 // import ProfilePage from "../pages/ProfilePage";
 import Profile from "../pages/Profile";
+import Logout from "./Logout";
+import { useLocation } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -88,13 +91,20 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function MiniDrawer() {
-  const FetchData = useFetch();
-  const navigation = useNavigate();
-  const theme = useTheme();
+  // const FetchData = useFetch();
+  // const navigation = useNavigate();
+  // const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
-  const { guestsList, setGuestsList, setIsLoggedIn, isLoggedIn, handleReset } =
-    useContext(AppContext);
+  const [currentPathname, setCurrentPathname] = useState("/");
+  // const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
+  // const { guestsList, setGuestsList, setIsLoggedIn, isLoggedIn, handleReset } =
+  //   useContext(AppContext);
+  const location = useLocation();
+  const { pathname } = location;
+  useEffect(() => {
+    console.log("path name " + pathname);
+    setCurrentPathname(pathname);
+  }, [pathname]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -104,29 +114,11 @@ export default function MiniDrawer() {
     setOpen(false);
   };
 
-  const handleLogOut = () => {
-    dispatch({ type: "START" });
-    FetchData("/logout", "get")
-      .then((res) => {
-        console.log("logout response ", res.data);
-        dispatch({ type: "SUCCESS" });
-        if (res.data.isLogOutSuccess) {
-          sessionStorage.clear();
-          setIsLoggedIn(false);
-          navigation("/login");
-          handleReset();
-        }
-      })
-      .catch((err) => {
-        dispatch({ type: "ERROR" });
-        console.log(err);
-      });
-  };
-
   return (
     <Box sx={{ display: "flex", height: "100%", alignItems: "center" }}>
       <CssBaseline />
       <Drawer
+        className="drawerWrapper"
         PaperProps={{
           sx: {
             backgroundColor: "#CECE5A",
@@ -165,8 +157,10 @@ export default function MiniDrawer() {
         <List className="listWrapper">
           {drawerLinks.map((item, index) => (
             <ListItem key={item.name} disablePadding sx={{ display: "block" }}>
+              {console.log(item.link + "-" + currentPathname)}
               <Link to={item.link}>
                 <ListItemButton
+                  // to={item.link}
                   sx={{
                     minHeight: 48,
                     justifyContent: open ? "initial" : "center",
@@ -180,14 +174,10 @@ export default function MiniDrawer() {
                       mr: open ? 3 : "auto",
                       justifyContent: "center",
                       marginRight: 0,
+                      color: currentPathname === item.link ? "white" : null,
                     }}
                   >
                     {item.icon}
-                    {/* {index % 2 === 0 ? (
-                    <EventAvailableIcon />
-                  ) : (
-                    <EditCalendarIcon />
-                  )} */}
                   </ListItemIcon>
                   <ListItemText
                     primary={item.name}
@@ -197,36 +187,11 @@ export default function MiniDrawer() {
               </Link>
             </ListItem>
           ))}
-          <ListItem
-            className="listItem"
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={handleLogOut}
-          >
-            <ListItemButton
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-                flexDirection: "row-reverse",
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
-                  marginRight: 0,
-                }}
-              >
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText primary={"התנתק"} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
+          <Logout open={open} />
+          <MyLogo variant={open ? 1 : 2} />
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, height: "90dvh" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, height: "95dvh" }}>
         {/* <Navigation /> */}
         {/* <HomePage /> */}
         <Routes>

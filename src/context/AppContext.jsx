@@ -8,7 +8,9 @@ export function AppContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [customerId, setCustomerId] = useState("");
   const [userInfo, setUserInfo] = useState({});
-  const [selectedEventInfo, setSelectedEventInfo] = useState({});
+  const [selectedEventInfo, setSelectedEventInfo] = useState(
+    JSON.parse(sessionStorage.getItem("eventInfo"))
+  );
   const handleReset = (value) => {
     setGuestsList([]);
     setUserEventsList([]);

@@ -1,6 +1,11 @@
 .events .title {
   text-align: right;
 }
+.events .downloadBtn {
+  cursor: pointer;
+  color: #415f82;
+  text-decoration: underline;
+}
 .events .eventsListWrapper {
   display: flex;
   flex-direction: column;
@@ -8,7 +13,7 @@
 }
 .events .eventsListWrapper .eventBox {
   display: flex;
-  padding: 2%;
+  padding: 2dvh;
   align-items: center;
   border-radius: 12px;
   justify-content: flex-start;

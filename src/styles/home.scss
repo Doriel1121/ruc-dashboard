@@ -1,4 +1,5 @@
-
+@use './variables.scss';
+@import './variables.scss';
 
     .summary-timer {
         grid-area: timer;
@@ -28,7 +29,7 @@
 
       .summary-child {
         padding: 5px 15px;
-        height: 10dvh;
+        height: 100%;
         border-radius: 12px;
         background: #f9f9f9;
         // background: linear-gradient(225deg, #f1f1f1, #ffffff);
@@ -55,11 +56,32 @@
         box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03);
         border-radius: 20px;
         display: flex;
-        height: 10dvh;
+        height: 100%;
         align-items: center;
         padding: 5px 15px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
+    .addBox{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      .flexBox{
+        @include flexBox;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+    }
+    .openedBox{
+      display: flex;
+    }
+    .closedBox{
+      display: none;
+    }
+
+  }
+  .importBtn{
+    color: $greenish !important;
   }

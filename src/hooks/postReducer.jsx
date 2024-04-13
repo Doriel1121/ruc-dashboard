@@ -1,12 +1,10 @@
 export const INITIAL_STATE = {
-  loading: false,
+  loading: undefined,
   post: undefined,
   error: false,
 };
 
 export const postReducer = (state, action) => {
-  console.log(action);
-
   switch (action.type) {
     case "START":
       return {

@@ -101,7 +101,6 @@ export default function Profile() {
       ) : (
         <div className="eventsListContainer">
           {userEventsList?.map((event) => {
-            // console.log(event._id, localEvenInfo._id);
             return (
               <div
                 onClick={(e) => handleSelectedEvent(e, event)}

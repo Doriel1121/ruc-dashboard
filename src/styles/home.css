@@ -27,7 +27,7 @@
 }
 .summary .summary-child {
   padding: 5px 15px;
-  height: 10dvh;
+  height: 100%;
   border-radius: 12px;
   background: #f9f9f9;
   box-shadow: -5px 5px 5px #f7f7f7, inset 5px -5px 5px #f7f7f7;
@@ -53,10 +53,33 @@
   box-shadow: 0px 5px 22px rgba(0, 0, 0, 0.04), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.03);
   border-radius: 20px;
   display: flex;
-  height: 10dvh;
+  height: 100%;
   align-items: center;
   padding: 5px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.tableWrapper .addBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.tableWrapper .addBox .flexBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tableWrapper .openedBox {
+  display: flex;
+}
+.tableWrapper .closedBox {
+  display: none;
+}
+
+.importBtn {
+  color: #CECE5A !important;
 }/*# sourceMappingURL=home.css.map */

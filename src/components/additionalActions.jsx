@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useReducer } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -51,7 +52,7 @@ export default function AdditionalActions(props) {
         >
           <Typography>הוסף/ערוך פתיח להודעה</Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ textAlign: "left" }}>
+        <AccordionDetails sx={{ textAlign: "left", background: "#f9f9f1" }}>
           <Typography>
             כאן ניתן להוסיף פתיח להודעה שתישלח לכלל המוזמנים שלך, במקרה ושדה זה
             לא ימולא תתווסף הודעה גנרית.
@@ -73,8 +74,12 @@ export default function AdditionalActions(props) {
           <div>
             <span>{eventData?.opening},</span>
             <br />
-            <span>נשמח שתעדכנו אותנו אודות הגעתכם כאן</span>
-            <br />
+            {eventData?.serviceType?.value !== 0 ? (
+              <>
+                <span>נשמח שתעדכנו אותנו אודות הגעתכם כאן</span>
+                <br />
+              </>
+            ) : null}
             <a className="link">
               https://rucoming-dashboard/eventId/customerId
             </a>
@@ -89,11 +94,23 @@ export default function AdditionalActions(props) {
         >
           <Typography>יצירת הודעה לעדכון מוזמנים לגבי שינוי</Typography>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails sx={{ textAlign: "left", background: "#f9f9f1" }}>
           <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
+            נסח כאן את ההודעה,
+            <br /> ההודעה תישלח באופן מיידי לכלל המוזמנים
           </Typography>
+          <form className="openingForm" onSubmit={handleOpeningForm}>
+            <TextField
+              sx={{ width: "100%", marginTop: "20px" }}
+              id="standard-multiline-static"
+              label="הכנס הודעה"
+              name="opening"
+              multiline
+              maxRows={4}
+              variant="standard"
+            />
+            <button type="submit">שמור</button>
+          </form>
         </AccordionDetails>
       </Accordion>
     </div>

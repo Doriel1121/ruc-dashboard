@@ -1,14 +1,15 @@
 import { Box, TextField, Button } from "@mui/material";
-import { useState, useEffect, useReducer } from "react";
-import { useFetch } from "../hooks/useFetch";
-import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
-import Loader from "./loader";
+import { useState, useEffect } from "react";
+// import { useFetch } from "../hooks/useFetch";
+// import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
+// import Loader from "./loader";
 
 export default function CustomerEditEvent(props) {
   const { eventInfo, updateEvent, fallback } = props;
   const [localEventInfo, setLocalEventInfo] = useState({});
-  const Fetch = useFetch();
-  const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
+  // const Fetch = useFetch();
+  // const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
+  const [isEditable, setIsEditable] = useState(false);
 
   const {
     _id,
@@ -17,7 +18,7 @@ export default function CustomerEditEvent(props) {
     location,
     date,
     hoopa_hour,
-    invited_amount,
+    max_guests_amount,
     party_hour,
     broom_parents,
     bride_parents,
@@ -54,6 +55,22 @@ export default function CustomerEditEvent(props) {
       he: "שמות הורי הכלה",
       label: "bride_parents",
     },
+    max_guests_amount: {
+      value: max_guests_amount,
+      he: "מספר מוזמנים בתוכנית",
+      label: "max_guests_amount",
+    },
+    serviceType: {
+      value: serviceType.name,
+      he: "סוג שירות",
+      label: "serviceType",
+    },
+    templateLink: {
+      value: "template_link",
+      he: "קישור להזמנה",
+      label: "templateLink",
+      type: "link",
+    },
   };
   const barMitzvaEditableFields = {
     name: { value: name, he: "שם", label: "name" },
@@ -73,6 +90,17 @@ export default function CustomerEditEvent(props) {
       he: "שמות הורי הכלה",
       label: "bride_parents",
     },
+    max_guests_amount: {
+      value: max_guests_amount,
+      he: "מספר מוזמנים בתוכנית",
+      label: "max_guests_amount",
+    },
+    templateLink: {
+      value: "template_link",
+      he: "קישור להזמנה",
+      label: "templateLink",
+      type: "link",
+    },
   };
 
   useEffect(() => {
@@ -84,7 +112,7 @@ export default function CustomerEditEvent(props) {
         setLocalEventInfo(barMitzvaEditableFields);
         break;
       case "חינה":
-        setLocalEventInfo(barMitzvaEditableFields);
+        setLocalEventInfo(weddingEditableFields);
         break;
 
       default:
@@ -95,13 +123,17 @@ export default function CustomerEditEvent(props) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    const infoData = { ...Object.fromEntries(data.entries()) };
-    const filteredObject = {
-      ...filterEmptyProperties(infoData),
-      eventId: eventInfo._id,
-    };
-    updateEvent(filteredObject);
+    if (isEditable) {
+      const data = new FormData(event.target);
+      const infoData = { ...Object.fromEntries(data.entries()) };
+      const filteredObject = {
+        ...filterEmptyProperties(infoData),
+        eventId: eventInfo._id,
+      };
+      updateEvent(filteredObject);
+    } else {
+      setIsEditable(true);
+    }
   };
 
   function filterEmptyProperties(obj) {
@@ -123,22 +155,37 @@ export default function CustomerEditEvent(props) {
             // !!information[property].value === true ? (
             return (
               <Box className="inputWrapper" key={index}>
-                {/* <span>{localEventInfo[property]?.he}</span> */}
-                <TextField
-                  variant="standard"
-                  label={localEventInfo[property]?.he}
-                  placeholder={localEventInfo[property]?.value}
-                  key={index}
-                  name={localEventInfo[property]?.label}
-                  //   value={localEventInfo[property]?.value}
-                />
+                {isEditable ? (
+                  <TextField
+                    variant="standard"
+                    label={localEventInfo[property]?.he}
+                    placeholder={localEventInfo[property]?.value}
+                    key={index}
+                    name={localEventInfo[property]?.label}
+                    sx={{ width: "90%" }}
+                  />
+                ) : (
+                  <span>
+                    <strong>{localEventInfo[property]?.he}: </strong>
+                    {localEventInfo[property]?.type === "link" ? (
+                      <a href={localEventInfo[property]?.value}>לחץ כאן</a>
+                    ) : (
+                      <span>{localEventInfo[property]?.value}</span>
+                    )}
+                  </span>
+                )}
               </Box>
             );
           })}
         </Box>
-        <Button className="submitBtn" variant="contained" type="submit">
-          עדכן פרטי אירוע
-        </Button>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <Button className="submitBtn" variant="contained" type="submit">
+            {isEditable ? "עדכן פרטי אירוע" : "הפוך עריכה לזמינה"}
+          </Button>
+          <a onClick={() => setIsEditable(false)} className="clickable">
+            {isEditable ? "חזור" : null}
+          </a>
+        </Box>
       </form>
     </div>
   );

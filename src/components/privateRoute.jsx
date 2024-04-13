@@ -1,20 +1,24 @@
 import { useContext, useEffect } from "react";
 import AppContext from "../context/AppContext";
 import { Outlet, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
 import { useFetch } from "../hooks/useFetch";
 
 export default function PrivateRoute() {
   const { isLoggedIn, setIsLoggedIn, handleReset } = useContext(AppContext);
-  const cookies = Cookies.get();
   const sessionUserInfo = JSON.parse(sessionStorage.getItem("customerInfo"));
   const id = sessionUserInfo?.userId;
   const FetchData = useFetch();
   const navigation = useNavigate();
-  console.log("doc cookie", document.cookie);
+  const cookies = new Cookies();
+
   // useEffect(() => {
+  //   const myCookie = cookies.get("login_session");
+  //   console.log("doc cookie", myCookie);
+
   //   console.log("reloading because of cookies");
-  // }, [cookies]);
+  // }, []);
 
   const handleLogOut = () => {
     FetchData("/logout", "get")
@@ -34,12 +38,12 @@ export default function PrivateRoute() {
       .catch((err) => {
         // dispatch({ type: "ERROR" });
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoggedIn(false);
+        navigation("/login");
       });
   };
-
-  console.log("cookies", cookies);
-  console.log("is logged in", isLoggedIn);
-  console.log("id ", id, !!id);
   if (!!sessionUserInfo === true) {
     console.log(
       "in case of refresh and cookie was created and there is a session storage this message shouldnt appear"

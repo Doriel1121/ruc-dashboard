@@ -1,6 +1,19 @@
-$MainColor : #415f82;
+$greenishColor : #415f82;
 $borderRadius : '20px';
 $grayBgColor: #c7c7c714; 
 $greenish: #CECE5A;
 $yellowish: #FFE17B;
 $orangeish: #FD8D14;
+// $greenish:#DC6B19
+
+@mixin clickable{
+    cursor: pointer;
+    color: $greenishColor;
+    text-decoration: underline;
+}
+
+@mixin flexBox{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
