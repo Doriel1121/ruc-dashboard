@@ -87,10 +87,11 @@ export default function SignIn() {
         console.log(err);
         dispatch({ type: "ERROR" });
         setIsLoggedIn(false);
+        navigation("/login");
       });
   };
   if (state.loading) return <Loader />;
-  if (state.error) return "error occurred";
+  // if (state.error) return "error occurred";
   console.log("loggen in", isLoggedIn);
 
   return (
@@ -143,6 +144,8 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {state.error ? <Typography>סיסמה שגויה</Typography> : null}
+
             <Button
               type="submit"
               fullWidth
