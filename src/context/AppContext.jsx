@@ -8,9 +8,11 @@ export function AppContextProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [customerId, setCustomerId] = useState("");
   const [userInfo, setUserInfo] = useState({});
+  const [isActivateLogOut, setIsActivateLogOut] = useState(false);
   const [selectedEventInfo, setSelectedEventInfo] = useState(
     JSON.parse(sessionStorage.getItem("eventInfo"))
   );
+
   const handleReset = (value) => {
     setGuestsList([]);
     setUserEventsList([]);
@@ -18,6 +20,8 @@ export function AppContextProvider({ children }) {
     setCustomerId("");
     setUserInfo({});
     setSelectedEventInfo({});
+    sessionStorage.clear();
+    setIsActivateLogOut(false);
   };
 
   const values = {
@@ -34,6 +38,8 @@ export function AppContextProvider({ children }) {
     userInfo,
     setUserInfo,
     handleReset,
+    isActivateLogOut,
+    setIsActivateLogOut,
   };
 
   return (

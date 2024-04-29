@@ -12,11 +12,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function SimpleSnackbar(props) {
   const { text, isOpen, handleIsOpen } = props;
-  //   const [open, setOpen] = React.useState(false);
-
-  //   const handleClick = () => {
-  //     setOpen(true);
-  //   };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -53,7 +48,7 @@ export default function SimpleSnackbar(props) {
           action={action}
         >
           <Alert onClose={handleClose} sx={{ width: "100%" }} severity="error">
-            חרגת ממספר המוזמנים בתוכנית שרכשת
+            {text}
           </Alert>
         </Snackbar>
       </div>

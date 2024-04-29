@@ -74,9 +74,9 @@ function App() {
               </QueryClientProvider>
             </BrowserRouter>
           </div>
-          <div style={{ height: "5%" }}>
+          {/* <div style={{ height: "5%" }}>
             <span style={{ fontSize: "12px" }}>כל הזכויות שמורות rucoming</span>
-          </div>
+          </div> */}
         </ThemeProvider>
       </CacheProvider>
     </>

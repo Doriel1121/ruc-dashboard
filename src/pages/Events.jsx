@@ -44,10 +44,9 @@ export default function Events() {
         dispatch({ type: "START" });
         const res = await FetchData(`/userEvents/${id}`, "get");
         // .then((res) => {
-        console.log(id);
         dispatch({ type: "SUCCESS" });
-        setUserEventsList(res.data.customerEvents);
-        return res.data.customerEvents;
+        setUserEventsList(res.data.data);
+        return res.data.data;
         // })
       } catch (err) {
         // }
@@ -73,8 +72,7 @@ export default function Events() {
     navigation("/dashboard");
   };
 
-  if (state.loading) return <Loader />;
-  if (isLoading) return <Loader />;
+  if (state.loading || isLoading) return <Loader />;
   if (state.error) return "משהו השתבש";
 
   return (

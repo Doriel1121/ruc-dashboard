@@ -2,17 +2,14 @@ import "../styles/profile.css";
 import AppContext from "../context/AppContext";
 import { useContext, useEffect, useState, useReducer } from "react";
 import CustomerEditEvent from "../components/customerEditEvent";
-import Events from "./Events";
 import { useFetch } from "../hooks/useFetch";
 import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
-import Loader from "../components/loader";
 import InlineLoader from "../components/InlineLoader";
 import AdditionalActions from "../components/additionalActions";
 import { useRef } from "react";
 
 export default function Profile() {
-  const { userInfo, userEventsList, setUserEventsList } =
-    useContext(AppContext);
+  const { userEventsList, setUserEventsList } = useContext(AppContext);
   const [localUserInfo, setLocalUserInfo] = useState();
   const [localEvenInfo, setLocalEvenInfo] = useState();
   const FetchData = useFetch();
@@ -34,12 +31,12 @@ export default function Profile() {
       FetchData(`/userEvents/${customer.userId}`, "get")
         .then((res) => {
           console.log(res);
-          const filteredList = res.data.customerEvents.filter(
+          const filteredList = res.data.data.filter(
             (singleEvent) => !isDatePassed(singleEvent.date)
           );
           console.log(filteredList);
           setUserEventsList(filteredList);
-          setLocalEvenInfo(res.data.customerEvents[0]);
+          setLocalEvenInfo(res.data.data[0]);
           dispatch({ type: "SUCCESS" });
         })
         .catch((err) => {
@@ -55,20 +52,20 @@ export default function Profile() {
     return targetDateObj < currentDate;
   }
 
-  const saveTemplate = () => {
-    const payload = {
-      name: "testTemplate",
-      eventTypeId: "65057b8b3011d1c1d6b7c668",
-      eventOptionId: "64e0d4496c47909abf598201",
-    };
-    FetchData(`/saveTemplate`, "post", payload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const saveTemplate = () => {
+  //   const payload = {
+  //     name: "testTemplate",
+  //     eventTypeId: "65057b8b3011d1c1d6b7c668",
+  //     eventOptionId: "64e0d4496c47909abf598201",
+  //   };
+  //   FetchData(`/saveTemplate`, "post", payload)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const handleUpdate = (payload) => {
     dispatch({ type: "START" });

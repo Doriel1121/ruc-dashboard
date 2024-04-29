@@ -1,4 +1,4 @@
-import { Typography, Grid, TextField } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import * as React from "react";
 import { useState, useContext, useReducer } from "react";
 import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
@@ -10,16 +10,17 @@ import { useMutation, useQueryClient } from "react-query";
 import { useFetch } from "../hooks/useFetch";
 import SimpleSnackbar from "./SnackBar";
 import InputFileUpload from "./uploadButton";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Loader from "./loader";
 
 export default function ImportFile() {
-  const [excelData, setExcelData] = useState(null);
+  // const [excelData, setExcelData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const { setGuestsList, guestsList, selectedEventInfo } =
+  const [message, setMessage] = useState("");
+  const { setGuestsList, guestsList, selectedEventInfo, setIsActivateLogOut } =
     useContext(AppContext);
   const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
   const FetchData = useFetch();
-
+  // const navigation = useNavigate();
   const queryClient = useQueryClient();
 
   const { mutateAsync: updateGuestsList } = useMutation({
@@ -54,16 +55,24 @@ export default function ImportFile() {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
       const parsedData = XLSX.utils.sheet_to_json(sheet);
+      console.log("parsedData", parsedData);
       console.log("selectedEventInfo", selectedEventInfo);
       if (parsedData.length > Number(selectedEventInfo.max_guests_amount)) {
         e.target.value = "";
+        setMessage("חרגת ממגבלת המוזמנים שלך");
         setIsOpen(true);
         return;
       }
 
       const thickGuestsList = addDataToGuestsList(parsedData);
-      setExcelData(parsedData);
-      storeListOnDb(thickGuestsList);
+      console.log(thickGuestsList);
+      // setExcelData(parsedData);
+      if (thickGuestsList.length > 0) {
+        storeListOnDb(thickGuestsList);
+      } else {
+        setMessage("מבנה קובץ לא תקין או ריק");
+        setIsOpen(true);
+      }
     };
     reader.readAsBinaryString(file);
   };
@@ -90,9 +99,16 @@ export default function ImportFile() {
       dispatch({ type: "SUCCESS", payload: res.data });
       // })
     } catch (err) {
-      console.log(err);
-      dispatch({ type: "ERROR" });
-      throw err;
+      if (err?.response?.data?.isLoginSuccess === false) {
+        console.log("here");
+        setIsActivateLogOut(true);
+      } else {
+        console.log(err);
+        setMessage("משהו השתבש בשמירת המוזמנים");
+        setIsOpen(true);
+        dispatch({ type: "ERROR" });
+        throw err;
+      }
     }
   };
   const eventFromSession = () => {
@@ -105,11 +121,14 @@ export default function ImportFile() {
     const copy = JSON.parse(JSON.stringify(parsedData));
     copy.forEach((element) => {
       (element.isComing = null),
-        (element.amount = 2),
         (element.eventId = eventInfoFromSession._id),
         (element.customerId = eventInfoFromSession.customerId);
     });
+    console.log(copy);
     return copy;
+  }
+  if (state.loading) {
+    return <Loader />;
   }
 
   return (
@@ -162,7 +181,11 @@ export default function ImportFile() {
       </Typography>
       <InputFileUpload updateGuestsList={updateGuestsList} />
       {isOpen ? (
-        <SimpleSnackbar isOpen={isOpen} handleIsOpen={setIsOpen} />
+        <SimpleSnackbar
+          isOpen={isOpen}
+          handleIsOpen={setIsOpen}
+          text={message}
+        />
       ) : null}
     </Grid>
   );

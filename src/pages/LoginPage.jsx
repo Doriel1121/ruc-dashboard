@@ -11,14 +11,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState, useReducer, useContext, useEffect } from "react";
+import { useReducer, useContext } from "react";
 import { postReducer, INITIAL_STATE } from "../hooks/postReducer";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../context/AppContext";
 import Loader from "../components/loader";
 import { useFetch } from "../hooks/useFetch";
-import Cookies from "js-cookie";
 
 function Copyright(props) {
   return (
@@ -48,19 +46,19 @@ export default function SignIn() {
   const [state, dispatch] = useReducer(postReducer, INITIAL_STATE);
   const navigation = useNavigate();
   const FetchData = useFetch();
-  const id = JSON.parse(sessionStorage.getItem("customerInfo"))?.userId;
+  // const id = JSON.parse(sessionStorage.getItem("customerInfo"))?.userId;
 
-  useEffect(() => {
-    const cookies = Cookies.get();
-    if (!!id === true) {
-      console.log("im logged innnn");
-      navigation("/");
-    }
-    // if (isLoggedIn) {
-    //   console.log("im logged innnn");
-    //   navigation("/");
-    // }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   console.log(id);
+  //   if (!!id === true) {
+  //     console.log("im logged innnn");
+  //     navigation("/");
+  //   }
+  //   // if (isLoggedIn) {
+  //   //   console.log("im logged innnn");
+  //   //   navigation("/");
+  //   // }
+  // }, [isLoggedIn]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

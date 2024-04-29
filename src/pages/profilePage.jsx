@@ -33,12 +33,12 @@ export default function ProfilePage() {
       FetchData(`/userEvents/${customer.userId}`, "get")
         .then((res) => {
           console.log(res);
-          const filteredList = res.data.customerEvents.filter(
+          const filteredList = res.data.data.filter(
             (singleEvent) => !isDatePassed(singleEvent.date)
           );
           console.log(filteredList);
           setUserEventsList(filteredList);
-          setLocalEvenInfo(res.data.customerEvents[0]);
+          setLocalEvenInfo(res.data.data[0]);
         })
         .catch((err) => {
           console.log(err);

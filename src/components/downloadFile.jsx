@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function DownloadFile(fileUrl, fileName) {
   // Create a temporary anchor element
   const downloadLink = document.createElement("a");

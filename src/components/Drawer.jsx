@@ -201,6 +201,9 @@ export default function MiniDrawer() {
             <Route path="/account" element={<Profile />} />
           </Route>
         </Routes>
+        <div style={{ height: "5%" }}>
+          <span style={{ fontSize: "12px" }}>כל הזכויות שמורות rucoming</span>
+        </div>
       </Box>
     </Box>
   );
